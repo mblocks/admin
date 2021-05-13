@@ -1,6 +1,7 @@
-import { Link } from 'umi';
-import { Badge } from 'antd';
+import { Link, history } from 'umi';
+import { Badge, Button } from 'antd';
 import ProTable from '@ant-design/pro-table';
+import { PlusOutlined } from '@ant-design/icons';
 import { queryApps } from '@/services/apps';
 
 const columns = [
@@ -49,6 +50,16 @@ export default () => {
           return queryApps({ params });
         }}
         rowKey="id"
+        toolBarRender={() => [
+          <Button
+            key="create"
+            icon={<PlusOutlined />}
+            type="primary"
+            onClick={() => history.push('/appstore')}
+          >
+            Create
+          </Button>,
+        ]}
       />
     </div>
   );

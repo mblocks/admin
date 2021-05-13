@@ -38,6 +38,9 @@ export default {
       }),
     );
   },
+  'POST /api/admin/apps/': (req: Request, res: Response) => {
+    res.send({ ...req.body, id: new Date().getTime() + '' });
+  },
   'GET /api/admin/apps/roles': (req: Request, res: Response) => {
     res.send([
       {
@@ -180,5 +183,32 @@ export default {
   },
   'POST /api/admin/users/:user_id': (req: Request, res: Response) => {
     res.send(req.body);
+  },
+  'GET /api/admin/appstore': (req: Request, res: Response) => {
+    res.send(
+      Mock.mock({
+        total: 20,
+        'data|20': [
+          {
+            id: '@id',
+            name: '@name',
+            title: '@title',
+            description: '@title',
+            services: [
+              {
+                name: 'main',
+                image: 'main:latest',
+                environment: [
+                  {
+                    name: 'DB_HOST',
+                    value: '127.0.0.1',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      }),
+    );
   },
 };

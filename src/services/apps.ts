@@ -36,3 +36,14 @@ export async function setService({ app_id, id, ...data }): Promise<any> {
     return error;
   });
 }
+
+export async function installApp(data): Promise<any> {
+  return request(`/api/admin/apps/`, {
+    method: 'post',
+    data,
+    getResponse: true,
+    skipErrorHandler: true,
+  }).catch(function (error) {
+    return error;
+  });
+}

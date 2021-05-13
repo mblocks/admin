@@ -6,6 +6,7 @@ export default defineConfig({
   },
   layout: {},
   routes: [
+    { path: '/appstore', component: '@/pages/appstore' },
     {
       path: '/apps/:app_id',
       component: '@/layouts/apps',
