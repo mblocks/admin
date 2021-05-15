@@ -22,7 +22,7 @@ jobs:
     - name: Install
       run: yarn
     - name: Build
-      run: yarn build
+      run: UMI_ENV=production yarn build
     - name: Zip
       run: zip -r dist.zip dist
     - name: Tar

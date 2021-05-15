@@ -4,7 +4,6 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  layout: {},
   routes: [
     { path: '/appstore', component: '@/pages/appstore' },
     {
