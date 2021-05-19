@@ -6,12 +6,12 @@ import { queryApps } from '@/services/apps';
 
 const columns = [
   {
-    title: 'Title',
-    dataIndex: 'title',
+    title: 'Name',
+    dataIndex: 'name',
   },
   {
-    title: 'Path',
-    dataIndex: 'path',
+    title: 'Title',
+    dataIndex: 'title',
   },
   {
     title: 'Status',

@@ -11,7 +11,7 @@ export default {
           {
             id: '@id',
             title: '@title',
-            path: '@name',
+            name: '@name',
             endpoint: 'http://192.168.50.101/',
             services: [
               {
@@ -68,12 +68,15 @@ export default {
       },
     ]);
   },
+  'POST /api/admin/apps/:app_id': (req: Request, res: Response) => {
+    res.send({ ...req.body, id: req.params.app_id });
+  },
   'GET /api/admin/apps/:app_id': (req: Request, res: Response) => {
     //res.status(401);
     res.send({
       id: req.params.app_id,
       title: 'myphoto',
-      path: '/photo',
+      name: 'photo',
       endpoint: 'http://192.168.50.101/',
       services: [
         {

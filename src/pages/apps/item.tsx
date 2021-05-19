@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'umi';
-import { Card, Button, Popconfirm } from 'antd';
+import { Card, Button, Popconfirm, message } from 'antd';
 import ProTable from '@ant-design/pro-table';
 import ProForm, {
   ModalForm,
@@ -9,14 +9,15 @@ import ProForm, {
   ProFormGroup,
 } from '@ant-design/pro-form';
 import { PlusOutlined } from '@ant-design/icons';
-import { getApp, setService } from '@/services/apps';
+import { getApp, updateApp, setService } from '@/services/apps';
 
 export default () => {
   const params = useParams();
   const { app_id } = params;
   const [app, setApp] = useState({ services: [] });
-  const [formVisible, setFormVisible] = useState(false);
   const [form] = ProForm.useForm();
+  const [serviceForm] = ProForm.useForm();
+  const [serviceFormVisible, setServiceFormVisible] = useState(false);
   const columns = [
     {
       title: 'Name',
@@ -47,8 +48,8 @@ export default () => {
           key="update"
           size="small"
           onClick={() => {
-            setFormVisible(true);
-            form.setFieldsValue(record);
+            setServiceFormVisible(true);
+            serviceForm.setFieldsValue(record);
           }}
         >
           update
@@ -72,7 +73,10 @@ export default () => {
   ];
 
   useEffect(() => {
-    getApp({ id: app_id }).then((res) => setApp(res));
+    getApp({ id: app_id }).then((res) => {
+      setApp(res);
+      form.setFieldsValue(res);
+    });
   }, []);
 
   return (
@@ -80,6 +84,45 @@ export default () => {
       <Card bordered={false}>Overview</Card>
       <Card bordered={false} title="Role declare" style={{ marginTop: '24px' }}>
         Overview
+      </Card>
+      <Card title="basic" bordered={false} style={{ marginTop: '24px' }}>
+        <ProForm
+          form={form}
+          submitter={{
+            searchConfig: {
+              submitText: 'Save',
+            },
+            render: (_, dom) => dom.pop(),
+          }}
+          onFinish={async (values) => {
+            const res = await updateApp(values);
+            if (res.response.status == 200) {
+              message.success('success');
+            }
+          }}
+        >
+          <ProFormText
+            width="xl"
+            name="title"
+            label="title"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          />
+          <ProFormText
+            width="xl"
+            name="name"
+            label="name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          />
+          <ProFormText name="id" hidden />
+        </ProForm>
       </Card>
       <ProTable
         style={{ marginTop: '24px' }}
@@ -96,8 +139,8 @@ export default () => {
             key="create"
             icon={<PlusOutlined />}
             onClick={() => {
-              form.resetFields();
-              setFormVisible(true);
+              serviceForm.resetFields();
+              setServiceFormVisible(true);
             }}
           >
             Create
@@ -106,12 +149,12 @@ export default () => {
       />
       <ModalForm
         modalProps={{
-          onCancel: () => setFormVisible(false),
-          okText: <>{form.getFieldValue('id') ? 'Save' : 'Create'}</>,
+          onCancel: () => setServiceFormVisible(false),
+          okText: <>{serviceForm.getFieldValue('id') ? 'Save' : 'Create'}</>,
           cancelText: <>Cancel</>,
         }}
-        form={form}
-        visible={formVisible}
+        form={serviceForm}
+        visible={serviceFormVisible}
         onFinish={async (values) => {
           const res = await setService({ app_id, ...values });
           if (res.response.status == 200) {
@@ -126,7 +169,7 @@ export default () => {
               setApp({ ...app, services: [res.data, ...app.services] });
             }
           }
-          setFormVisible(false);
+          setServiceFormVisible(false);
         }}
       >
         <ProFormText
