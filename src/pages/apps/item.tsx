@@ -48,13 +48,7 @@ export default () => {
           size="small"
           onClick={() => {
             setFormVisible(true);
-            form.setFieldsValue({
-              ...record,
-              environment: Object.entries(record.environment).map(([k, v]) => ({
-                name: k,
-                value: v,
-              })),
-            });
+            form.setFieldsValue(record);
           }}
         >
           update
@@ -119,10 +113,6 @@ export default () => {
         form={form}
         visible={formVisible}
         onFinish={async (values) => {
-          values.environment = Object.assign(
-            {},
-            ...values.environment.map((v) => ({ [v.name]: v.value })),
-          );
           const res = await setService({ app_id, ...values });
           if (res.response.status == 200) {
             if (values.id) {
