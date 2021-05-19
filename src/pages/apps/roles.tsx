@@ -44,10 +44,7 @@ export default () => {
           size="small"
           onClick={() => {
             setFormVisible(true);
-            form.setFieldsValue({
-              ...record,
-              auth: JSON.stringify(record.auth, null, 2),
-            });
+            form.setFieldsValue(record);
           }}
         >
           Edit
@@ -80,7 +77,6 @@ export default () => {
         onFinish={async (values) => {
           const res = await setRole({
             ...values,
-            auth: JSON.parse(values.auth),
             app_id,
           });
           if (res.response.status == 200) {
