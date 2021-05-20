@@ -87,10 +87,10 @@ export default {
           container_id: '5432545asdf7ew',
           status: 'running',
           ip: '10.5.12.25',
-          environment: {
-            database: '10.2.12.21',
-            env: 'test',
-          },
+          environment: [
+            { name: 'database', value: '10.2.12.21' },
+            { name: 'env', value: 'test' },
+          ],
         },
         {
           id: '21',
@@ -100,7 +100,7 @@ export default {
           container_id: '1484832d434fasfs',
           status: 'running',
           ip: '10.5.12.26',
-          environment: {},
+          environment: [],
         },
       ],
     });
@@ -114,7 +114,7 @@ export default {
           {
             id: '@id',
             title: '@title',
-            auth: { query: { name: 'mine' } },
+            auth: '{ "query": { "name": "mine" } }',
             'enabled|1': [true, false],
           },
         ],
