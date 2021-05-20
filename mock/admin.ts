@@ -78,6 +78,15 @@ export default {
       title: 'myphoto',
       name: 'photo',
       endpoint: 'http://192.168.50.101/',
+    });
+  },
+  'GET /api/admin/apps/:app_id/overview': (req: Request, res: Response) => {
+    //res.status(401);
+    res.send({
+      id: req.params.app_id,
+      title: 'myphoto',
+      name: 'photo',
+      endpoint: 'http://192.168.50.101/',
       services: [
         {
           id: '11',

@@ -9,7 +9,7 @@ import ProForm, {
   ProFormSwitch,
 } from '@ant-design/pro-form';
 import { PlusOutlined } from '@ant-design/icons';
-import { queryRoles, setRole } from '@/services/apps';
+import { queryAppRoles, updateAppRole } from '@/services/apps';
 
 export default () => {
   const { app_id } = useParams();
@@ -75,7 +75,7 @@ export default () => {
         form={form}
         visible={formVisible}
         onFinish={async (values) => {
-          const res = await setRole({
+          const res = await updateAppRole({
             ...values,
             app_id,
           });
@@ -117,7 +117,7 @@ export default () => {
       <ProTable
         columns={columns}
         request={async (params = {}, sort, filter) => {
-          const res = await queryRoles({ app_id, params });
+          const res = await queryAppRoles({ app_id, params });
           setData(res.data);
           return res;
         }}

@@ -8,6 +8,10 @@ export async function getApp({ id }): Promise<any> {
   return request(`/api/admin/apps/${id}`);
 }
 
+export async function getAppOverview({ id }): Promise<any> {
+  return request(`/api/admin/apps/${id}/overview`);
+}
+
 export async function updateApp({ id, ...data }): Promise<any> {
   return request(`/api/admin/apps/${id}`, {
     method: 'post',
@@ -19,14 +23,14 @@ export async function updateApp({ id, ...data }): Promise<any> {
   });
 }
 
-export async function queryRoles({ app_id, params }): Promise<any> {
+export async function queryAppRoles({ app_id, params }): Promise<any> {
   return request(
     app_id ? `/api/admin/apps/${app_id}/roles` : `/api/admin/apps/roles`,
     { params },
   );
 }
 
-export async function setRole({ app_id, id, ...data }): Promise<any> {
+export async function updateAppRole({ app_id, id, ...data }): Promise<any> {
   return request(`/api/admin/apps/${app_id}/roles${id ? '/' + id : ''}`, {
     method: 'post',
     data,
@@ -37,7 +41,7 @@ export async function setRole({ app_id, id, ...data }): Promise<any> {
   });
 }
 
-export async function setService({ app_id, id, ...data }): Promise<any> {
+export async function updateAppService({ app_id, id, ...data }): Promise<any> {
   return request(`/api/admin/apps/${app_id}/services${id ? '/' + id : ''}`, {
     method: 'post',
     data,

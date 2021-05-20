@@ -9,7 +9,7 @@ import ProForm, {
   ProFormGroup,
 } from '@ant-design/pro-form';
 import { PlusOutlined } from '@ant-design/icons';
-import { getApp, updateApp, setService } from '@/services/apps';
+import { getAppOverview, updateApp, updateAppService } from '@/services/apps';
 
 export default () => {
   const params = useParams();
@@ -73,7 +73,7 @@ export default () => {
   ];
 
   useEffect(() => {
-    getApp({ id: app_id }).then((res) => {
+    getAppOverview({ id: app_id }).then((res) => {
       setApp(res);
       form.setFieldsValue(res);
     });
@@ -156,7 +156,7 @@ export default () => {
         form={serviceForm}
         visible={serviceFormVisible}
         onFinish={async (values) => {
-          const res = await setService({ app_id, ...values });
+          const res = await updateAppService({ app_id, ...values });
           if (res.response.status == 200) {
             if (values.id) {
               setApp({
