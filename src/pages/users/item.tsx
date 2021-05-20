@@ -7,8 +7,8 @@ import ProForm, {
   ProFormSelect,
   ProFormSwitch,
 } from '@ant-design/pro-form';
-import { getUser, setUser } from '@/services/users';
-import { queryRoles } from '@/services/apps';
+import { getUser, updateUser } from '@/services/users';
+import { queryAppRoles } from '@/services/apps';
 
 const itemRender = (route, _, routes) => {
   const last = routes.indexOf(route) === routes.length - 1;
@@ -22,13 +22,13 @@ const itemRender = (route, _, routes) => {
 export default () => {
   const { user_id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [userinfo, setUserinfo] = useState({});
+  const [user, setUser] = useState({});
   const [roles, setRoles] = useState([]);
   const [form] = ProForm.useForm();
   useEffect(() => {
     !isNaN(user_id) &&
       getUser({ user_id }).then((res) => {
-        setUserinfo(res);
+        setUser(res);
         res.roles = Object.assign(
           {},
           ...res.roles.map((item) => ({
@@ -40,7 +40,7 @@ export default () => {
         );
         form.setFieldsValue(res);
       });
-    queryRoles({}).then((res) => {
+    queryAppRoles({}).then((res) => {
       setLoading(false);
       setRoles(res);
     });
@@ -50,7 +50,7 @@ export default () => {
     <PageContainer
       loading={loading}
       header={{
-        title: isNaN(user_id) ? 'new user' : userinfo.user_name,
+        title: isNaN(user_id) ? 'new user' : user.user_name,
         breadcrumb: {
           itemRender,
           routes: [
@@ -64,7 +64,7 @@ export default () => {
             },
             {
               path: `/users/${user_id}`,
-              breadcrumbName: isNaN(user_id) ? 'new user' : userinfo.user_name,
+              breadcrumbName: isNaN(user_id) ? 'new user' : user.user_name,
             },
           ],
         },
@@ -89,12 +89,12 @@ export default () => {
               values.roles = Object.entries(values.roles).map(([k, v]) => ({
                 [k]: v.map((vv) => ({ id: vv.value, title: vv.label })),
               }));
-              const res = await setUser(
+              const res = await updateUser(
                 isNaN(user_id) ? values : { user_id, ...values },
               );
               if (res.response.status == 200) {
                 message.success('success');
-                setUserinfo(res.data);
+                setUser(res.data);
                 if (isNaN(user_id)) {
                   history.push(`/users/${res.data.id}`);
                 }

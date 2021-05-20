@@ -8,7 +8,7 @@ export async function getUser({ user_id }): Promise<any> {
   return request(`/api/admin/users/${user_id}`);
 }
 
-export async function setUser({ user_id, ...data }): Promise<any> {
+export async function updateUser({ user_id, ...data }): Promise<any> {
   return request(`/api/admin/users/${isNaN(user_id) ? '' : user_id}`, {
     method: 'post',
     data,
