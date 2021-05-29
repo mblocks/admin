@@ -9,7 +9,13 @@ import ProForm, {
   ProFormGroup,
 } from '@ant-design/pro-form';
 import { PlusOutlined } from '@ant-design/icons';
-import { getAppOverview, updateApp, updateAppService } from '@/services/apps';
+import {
+  getAppOverview,
+  updateApp,
+  updateAppService,
+  deleteAppservice,
+} from '@/services/apps';
+import { formatErrors } from '@/utils';
 
 export default () => {
   const params = useParams();
@@ -57,11 +63,15 @@ export default () => {
         <Popconfirm
           key="delete"
           title="Are you sure？"
-          onConfirm={() => {
-            setApp({
-              ...app,
-              services: [...app.services.filter((v) => v.id != record.id)],
-            });
+          onConfirm={async () => {
+            const res = await deleteAppservice({ ...record, app_id });
+            if (res.response.status == 200) {
+              setApp({
+                ...app,
+                services: [...app.services.filter((v) => v.id != record.id)],
+              });
+            } else {
+            }
           }}
         >
           <Button key="delete" size="small" danger>
@@ -166,10 +176,12 @@ export default () => {
                 ),
               });
             } else {
-              setApp({ ...app, services: [res.data, ...app.services] });
+              setApp({ ...app, services: [...app.services, res.data] });
             }
+            setServiceFormVisible(false);
+          } else {
+            serviceForm.setFields?.(formatErrors(res.data));
           }
-          setServiceFormVisible(false);
         }}
       >
         <ProFormText

@@ -9,7 +9,8 @@ import ProForm, {
   ProFormSwitch,
 } from '@ant-design/pro-form';
 import { PlusOutlined } from '@ant-design/icons';
-import { queryAppRoles, updateAppRole } from '@/services/apps';
+import { queryAppRoles, updateAppRole, deleteAppRole } from '@/services/apps';
+import { formatErrors } from '@/utils';
 
 export default () => {
   const { app_id } = useParams();
@@ -44,7 +45,10 @@ export default () => {
           size="small"
           onClick={() => {
             setFormVisible(true);
-            form.setFieldsValue(record);
+            form.setFieldsValue({
+              ...record,
+              auth: JSON.stringify(record.auth),
+            });
           }}
         >
           Edit
@@ -52,8 +56,12 @@ export default () => {
         <Popconfirm
           key="delete"
           title="Are you sure？"
-          onConfirm={() => {
-            setData([...data.filter((v) => v.id != record.id)]);
+          onConfirm={async () => {
+            const res = await deleteAppRole({ ...record, app_id });
+            if (res.response.status == 200) {
+              setData([...data.filter((v) => v.id != record.id)]);
+            } else {
+            }
           }}
         >
           <Button size="small" danger>
@@ -86,6 +94,8 @@ export default () => {
               setData([res.data, ...data]);
             }
             setFormVisible(false);
+          } else {
+            form.setFields?.(formatErrors(res.data));
           }
         }}
       >

@@ -22,7 +22,7 @@ const columns = [
         {services.map((item) => {
           return (
             <div key={item.id}>
-              <Badge color="green" text={item.title} />
+              <Badge color="green" text={item.name} />
             </div>
           );
         })}

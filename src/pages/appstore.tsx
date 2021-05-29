@@ -8,6 +8,7 @@ import ProForm, {
   ProFormList,
 } from '@ant-design/pro-form';
 import { installApp } from '@/services/apps';
+import { formatErrors } from '@/utils';
 
 const itemRender = (route, _, routes) => {
   const last = routes.indexOf(route) === routes.length - 1;
@@ -214,6 +215,9 @@ export default () => {
           });
           if (res.response.status == 200) {
             history.push(`/apps/${res.data.id}`);
+          } else {
+            setCustom(true);
+            form.setFields?.(formatErrors(res.data));
           }
         }}
       >

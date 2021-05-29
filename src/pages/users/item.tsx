@@ -23,15 +23,15 @@ export default () => {
   const { user_id } = useParams();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
-  const [roles, setRoles] = useState([]);
+  const [roles, setRoles] = useState({});
   const [form] = ProForm.useForm();
   useEffect(() => {
     !isNaN(user_id) &&
       getUser({ user_id }).then((res) => {
         setUser(res);
-        res.roles = Object.assign(
+        res.apps = Object.assign(
           {},
-          ...res.roles.map((item) => ({
+          ...res.apps.map((item) => ({
             [item.name]: item.roles.map((vv) => ({
               value: vv.id,
               label: vv.title,
@@ -39,6 +39,7 @@ export default () => {
           })),
         );
         form.setFieldsValue(res);
+        console.log(res);
       });
     queryAppRoles({}).then((res) => {
       setLoading(false);
@@ -86,8 +87,9 @@ export default () => {
               },
             }}
             onFinish={async (values) => {
-              values.roles = Object.entries(values.roles).map(([k, v]) => ({
-                [k]: v.map((vv) => ({ id: vv.value, title: vv.label })),
+              values.apps = Object.entries(values.apps).map(([k, v]) => ({
+                ...roles[k],
+                roles: v.map((vv) => ({ id: vv.value, title: vv.label })),
               }));
               const res = await updateUser(
                 isNaN(user_id) ? values : { user_id, ...values },
@@ -122,12 +124,12 @@ export default () => {
               ]}
             />
             <ProFormSwitch name="enabled" label="enabled" />
-            {roles.map((item) => (
+            {Object.values(roles).map((item) => (
               <ProFormSelect
                 key={item.name}
                 mode="multiple"
                 label={item.title}
-                name={['roles', item.name]}
+                name={['apps', item.name]}
                 fieldProps={{ labelInValue: true }}
                 options={item.roles.map((v) => ({
                   label: v.title,

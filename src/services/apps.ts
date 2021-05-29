@@ -41,8 +41,30 @@ export async function updateAppRole({ app_id, id, ...data }): Promise<any> {
   });
 }
 
+export async function deleteAppRole({ app_id, id, ...data }): Promise<any> {
+  return request(`/api/admin/apps/${app_id}/roles/${id}/delete`, {
+    method: 'post',
+    data,
+    getResponse: true,
+    skipErrorHandler: true,
+  }).catch(function (error) {
+    return error;
+  });
+}
+
 export async function updateAppService({ app_id, id, ...data }): Promise<any> {
   return request(`/api/admin/apps/${app_id}/services${id ? '/' + id : ''}`, {
+    method: 'post',
+    data,
+    getResponse: true,
+    skipErrorHandler: true,
+  }).catch(function (error) {
+    return error;
+  });
+}
+
+export async function deleteAppservice({ app_id, id, ...data }): Promise<any> {
+  return request(`/api/admin/apps/${app_id}/services/${id}/delete`, {
     method: 'post',
     data,
     getResponse: true,
