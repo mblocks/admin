@@ -139,11 +139,11 @@ export default {
   'POST /api/admin/apps/:app_id/roles': (req: Request, res: Response) => {
     res.send({ ...req.body, id: new Date().getTime() + '' });
   },
-  'POST /api/admin/apps/:app_id/services/:role_id': (
+  'POST /api/admin/apps/:app_id/services/:service_id': (
     req: Request,
     res: Response,
   ) => {
-    res.send({ ...req.body, id: req.params.role_id });
+    res.send({ ...req.body, id: req.params.service_id });
   },
   'POST /api/admin/apps/:app_id/services': (req: Request, res: Response) => {
     res.send({ ...req.body, id: new Date().getTime() + '' });
