@@ -173,7 +173,7 @@ export default {
       user_name: 'ausername',
       email: 'somebody@example.com',
       enabled: true,
-      roles: [
+      apps: [
         {
           name: 'photo',
           title: 'myphoto',
