@@ -31,7 +31,7 @@ export default () => {
       title: 'actions',
       valueType: 'option',
       render: (text, record) => [
-        <Link key="settings" to="/users/1">
+        <Link key="settings" to={`/users/${record.id}`}>
           Settings
         </Link>,
         <Popconfirm
