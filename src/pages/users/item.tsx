@@ -87,7 +87,7 @@ export default () => {
               },
             }}
             onFinish={async (values) => {
-              values.apps = Object.entries(values.apps).map(([k, v]) => ({
+              values.apps = Object.entries(values.apps || {}).map(([k, v]) => ({
                 ...roles[k],
                 roles: v.map((vv) => ({ id: vv.value, title: vv.label })),
               }));

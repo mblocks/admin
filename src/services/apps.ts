@@ -75,7 +75,7 @@ export async function deleteAppservice({ app_id, id, ...data }): Promise<any> {
 }
 
 export async function installApp(data): Promise<any> {
-  return request(`/api/admin/apps/`, {
+  return request(`/api/admin/apps`, {
     method: 'post',
     data,
     getResponse: true,
