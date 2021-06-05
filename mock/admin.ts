@@ -163,7 +163,7 @@ export default {
       }),
     );
   },
-  'POST /api/admin/users/': (req: Request, res: Response) => {
+  'POST /api/admin/users': (req: Request, res: Response) => {
     req.body.id = new Date().getTime();
     res.send(req.body);
   },

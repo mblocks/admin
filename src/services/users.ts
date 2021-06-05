@@ -1,7 +1,7 @@
 import { request } from 'umi';
 
 export async function queryUsers({ params }): Promise<any> {
-  return request('/api/admin/users/', { params });
+  return request('/api/admin/users', { params });
 }
 
 export async function getUser({ user_id }): Promise<any> {
@@ -9,7 +9,7 @@ export async function getUser({ user_id }): Promise<any> {
 }
 
 export async function updateUser({ user_id, ...data }): Promise<any> {
-  return request(`/api/admin/users/${isNaN(user_id) ? '' : user_id}`, {
+  return request(`/api/admin/users${isNaN(user_id) ? '' : '/' + user_id}`, {
     method: 'post',
     data,
     getResponse: true,
