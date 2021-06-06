@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { Link, history } from 'umi';
+import { history } from 'umi';
 import { Badge, Button, Popconfirm } from 'antd';
 import ProTable from '@ant-design/pro-table';
-import { PlusOutlined } from '@ant-design/icons';
+import {
+  PlusOutlined,
+  SettingOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import { queryUsers, deleteUser } from '@/services/users';
 
 export default () => {
@@ -20,6 +24,7 @@ export default () => {
       title: 'Status',
       dataIndex: 'status',
       hideInSearch: true,
+      width: 200,
       render: (_, item) => (
         <Badge
           color={item.enabled ? 'green' : 'red'}
@@ -28,12 +33,18 @@ export default () => {
       ),
     },
     {
-      title: 'actions',
+      title: 'Actions',
       valueType: 'option',
+      width: 160,
       render: (text, record) => [
-        <Link key="settings" to={`/users/${record.id}`}>
-          Settings
-        </Link>,
+        <Button
+          key="settings"
+          size="small"
+          icon={<SettingOutlined />}
+          onClick={() => history.push(`/users/${record.id}`)}
+        >
+          Setting
+        </Button>,
         <Popconfirm
           key="delete"
           title="Are you sure？"
@@ -45,7 +56,7 @@ export default () => {
             }
           }}
         >
-          <Button size="small" danger>
+          <Button size="small" danger icon={<DeleteOutlined />}>
             Delete
           </Button>
         </Popconfirm>,

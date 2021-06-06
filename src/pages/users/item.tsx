@@ -39,7 +39,6 @@ export default () => {
           })),
         );
         form.setFieldsValue(res);
-        console.log(res);
       });
     queryAppRoles({}).then((res) => {
       setLoading(false);
@@ -120,6 +119,16 @@ export default () => {
               rules={[
                 {
                   required: true,
+                },
+              ]}
+            />
+            <ProFormText.Password
+              width="md"
+              name="password"
+              label="password"
+              rules={[
+                {
+                  required: isNaN(user_id),
                 },
               ]}
             />

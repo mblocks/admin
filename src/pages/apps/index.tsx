@@ -1,7 +1,7 @@
-import { Link, history } from 'umi';
+import { history } from 'umi';
 import { Badge, Button } from 'antd';
 import ProTable from '@ant-design/pro-table';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { queryApps } from '@/services/apps';
 
 const columns = [
@@ -30,12 +30,18 @@ const columns = [
     ),
   },
   {
-    title: '操作',
+    title: 'Actions',
     valueType: 'option',
+    width: 100,
     render: (text, record) => [
-      <Link key="settings" to="/apps/1">
-        Settings
-      </Link>,
+      <Button
+        key="settings"
+        size="small"
+        icon={<SettingOutlined />}
+        onClick={() => history.push(`/apps/${record.id}`)}
+      >
+        Setting
+      </Button>,
     ],
   },
 ];
