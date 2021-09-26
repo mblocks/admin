@@ -12,7 +12,7 @@ export default {
             id: '@id',
             title: '@title',
             name: '@name',
-            endpoint: 'http://192.168.50.101/',
+            entrypoint: 'http://192.168.50.101/',
             services: [
               {
                 id: '@id',
@@ -77,7 +77,7 @@ export default {
       id: req.params.app_id,
       title: 'myphoto',
       name: 'photo',
-      endpoint: 'http://192.168.50.101/',
+      entrypoint: 'http://192.168.50.101/',
     });
   },
   'GET /api/admin/apps/:app_id/overview': (req: Request, res: Response) => {
@@ -86,7 +86,7 @@ export default {
       id: req.params.app_id,
       title: 'myphoto',
       name: 'photo',
-      endpoint: 'http://192.168.50.101/',
+      entrypoint: 'http://192.168.50.101/',
       services: [
         {
           id: '11',
