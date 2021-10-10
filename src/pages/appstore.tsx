@@ -21,6 +21,58 @@ const itemRender = (route, _, routes) => {
 
 const data = [
   {
+    name: 'Drive',
+    title: 'Drive',
+    description: '',
+    services: [
+      {
+        name: 'drive',
+        image: 'mblocks/drive',
+        environment: [
+          {
+            name: 'SERVICES_MINIO_HOST',
+            value: 'minio.drive.mblocks',
+          },
+          {
+            name: 'SERVICES_MINIO_ACCESS_KEY',
+            value: 'hello',
+          },
+          {
+            name: 'SERVICES_MINIO_SECRET_KEY',
+            value: 'helloworld',
+          },
+        ],
+      },
+      {
+        name: 'minio',
+        image: 'minio/minio',
+        environment: [
+          {
+            name: 'MINIO_ROOT_USER',
+            value: 'hello',
+          },
+          {
+            name: 'MINIO_ROOT_PASSWORD',
+            value: 'helloworld',
+          },
+          {
+            name: 'MINIO_NOTIFY_WEBHOOK_ENABLE_DRIVE',
+            value: 'on',
+          },
+          {
+            name: 'MINIO_NOTIFY_WEBHOOK_ENDPOINT_DRIVE',
+            value: 'http://drive.drive.mblocks/webhooks/minio',
+          },
+        ],
+        command: ['minio server /data --console-address ":9001"'],
+        proxy: {
+          'services/minio/': '/',
+        },
+      },
+    ],
+    roles: [{ name: 'admin', auth: {} }],
+  },
+  {
     name: 'photo',
     title: 'Photo',
     description: 'some words',
@@ -45,23 +97,6 @@ const data = [
   {
     name: 'album',
     title: 'Album',
-    description: 'some words',
-    services: [
-      {
-        name: 'main',
-        image: 'main:latest',
-        environment: [
-          {
-            name: 'DB_HOST',
-            value: '127.0.0.1',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'title3',
-    title: 'Title 3',
     description: 'some words',
     services: [
       {
