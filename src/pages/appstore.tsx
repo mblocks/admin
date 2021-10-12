@@ -26,7 +26,7 @@ const data = [
     description: '',
     services: [
       {
-        name: 'drive',
+        name: 'main',
         image: 'mblocks/drive',
         environment: [
           {
@@ -66,7 +66,7 @@ const data = [
         ],
         command: ['minio server /data --console-address ":9001"'],
         proxy: {
-          'services/minio/': '/',
+          minio: ':9000',
         },
       },
     ],
