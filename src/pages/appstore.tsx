@@ -27,11 +27,11 @@ const data = [
     services: [
       {
         name: 'main',
-        image: 'mblocks/drive',
+        image: 'mblocks/drive-backend',
         environment: [
           {
             name: 'SERVICES_MINIO_HOST',
-            value: 'minio.drive.mblocks',
+            value: 'minio.drive.mblocks:9000',
           },
           {
             name: 'SERVICES_MINIO_ACCESS_KEY',
@@ -66,7 +66,7 @@ const data = [
         ],
         command: ['minio server /data --console-address ":9001"'],
         proxy: {
-          minio: ':9000',
+          minio: 'minio.drive.mblocks:9000',
         },
       },
     ],
