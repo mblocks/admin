@@ -131,6 +131,12 @@ const AppForm = ({ fullName = [], name = [], ...props }) => {
                   rules: [{ required: true, message: 'Please enter path' }],
                 },
                 {
+                  name: 'stripprefix',
+                  label: 'stripprefix',
+                  placeholder: 'a path',
+                  rules: [{ message: 'Please enter path' }],
+                },
+                {
                   name: ['target', 'path'],
                   label: 'target path',
                   placeholder: 'a target path',

@@ -73,6 +73,7 @@ const columns: ProColumns<AppItem>[] = [
       });
       return res.data.map((v) => ({ label: v.title, value: v.id }));
     },
+    params: (record) => ({ appId: record.id }),
     fieldProps: (_, { entity }) => {
       return {
         mode: 'multiple',
