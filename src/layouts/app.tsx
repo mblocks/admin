@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { history, useParams, useLocation, useModel } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
-import { getApp, getAppRole } from '@/services';
+import { getApp, getAppRole, getTemplate } from '@/services';
 import { itemRender } from './index';
 
 const LayoutApp: React.FC<{}> = ({ children }) => {
@@ -9,6 +9,7 @@ const LayoutApp: React.FC<{}> = ({ children }) => {
   const location = useLocation();
   const appId = params.id;
   const roleId = params.role_id;
+  const { template } = location.query;
   const { app, role, loading, setLayoutModel } = useModel(
     'useLayoutModel',
     (model) => model,
@@ -41,6 +42,12 @@ const LayoutApp: React.FC<{}> = ({ children }) => {
   useEffect(() => {
     setLayoutModel({ loading: true });
     if (isNaN(appId)) {
+      if (template) {
+        getTemplate(template).then((fetchTemplate) => {
+          setLayoutModel({ app: fetchTemplate, role: {}, loading: false });
+        });
+        return;
+      }
       //fix from exist app click url to create new app,but app value is exist app value
       new Promise(() => {
         setTimeout(() => {
@@ -52,7 +59,6 @@ const LayoutApp: React.FC<{}> = ({ children }) => {
     getApp({ id: appId }).then((fetchApp) => {
       if (!isNaN(roleId)) {
         getAppRole({ appId, id: roleId }).then((fetchRole) => {
-          console.log(48, fetchRole);
           setLayoutModel({ app: fetchApp, role: fetchRole, loading: false });
         });
       } else {

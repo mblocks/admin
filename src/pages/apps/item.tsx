@@ -15,7 +15,9 @@ const AppItem: React.FC<{}> = () => {
         initialValues={app}
         onFinish={async (values) => {
           const result = await deployApp({ ...app, ...values });
-          if (result.id) {
+          if (result.errors) {
+            message.error(result.errors.map((v) => v.errors.join('')));
+          } else {
             message.success('Create success');
             setLayoutModel({ app: result, loading: false });
             history.push(`/apps/${result.id}`);

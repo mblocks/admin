@@ -1,19 +1,7 @@
-import {
-  Form,
-  Input,
-  Button,
-  Card,
-  Radio,
-  Col,
-  Row,
-  Divider,
-  Space,
-  Tag,
-  message,
-} from 'antd';
+import { Form, Input, Button, Card, Radio, Space, Tag, message } from 'antd';
 import { useModel, useParams, history } from 'umi';
 import { EditableProTable } from '@ant-design/pro-table';
-import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-table';
 import {
   queryAppRoles,
@@ -234,50 +222,6 @@ const UserItem = () => {
           }}
         />
       )}
-      <Divider>Apps</Divider>
-      <Row gutter={[16, 16]}>
-        {apps.map((v) => (
-          <Col key={v.name} span={8}>
-            <Card
-              title={v.title}
-              size="small"
-              bordered={false}
-              bodyStyle={{ minHeight: '100px' }}
-              extra={
-                <Space>
-                  <Button size="small" type="primary" ghost>
-                    Edit
-                  </Button>
-                  <Button size="small" danger>
-                    Delete
-                  </Button>
-                </Space>
-              }
-            >
-              {v.title}
-            </Card>
-          </Col>
-        ))}
-        <Col span={8}>
-          <Card
-            size="small"
-            onClick={() => {
-              console.log('add new app');
-            }}
-            hoverable
-            bordered={false}
-            bodyStyle={{
-              textAlign: 'center',
-              minHeight: 140,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Button icon={<PlusOutlined />} size="large" block type="link" />
-          </Card>
-        </Col>
-      </Row>
     </>
   );
 };

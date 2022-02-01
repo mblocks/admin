@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/pro-card": "^1.18.26",
     "@ant-design/pro-layout": "^6.5.0",
     "@ant-design/pro-table": "^2.59.5",
     "@umijs/plugin-qiankun": "^2.24.1",

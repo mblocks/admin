@@ -1,4 +1,5 @@
 import { request } from 'umi';
+import { formatErrors } from './utils';
 
 export async function queryApps({ params }): Promise<any> {
   const { pageSize, ...rest } = params;
@@ -22,8 +23,11 @@ export async function deployApp(data): Promise<any> {
     {
       method: 'POST',
       data,
+      skipErrorHandler: true,
     },
-  );
+  ).catch(function (error) {
+    return { errors: formatErrors(error.data) };
+  });
   return result;
 }
 
@@ -107,4 +111,16 @@ export async function updateUserAuthorizedApps(
     { method: 'POST', data: roles },
   );
   return res;
+}
+
+export async function queryTemplates({ params }): Promise<any> {
+  const { pageSize, ...rest } = params;
+  return request('/api/admin/templates', {
+    params: { ...rest, page_size: pageSize },
+  });
+}
+
+export async function getTemplate(name): Promise<any> {
+  const result = await request('/api/admin/templates');
+  return result.filter((item) => item.name == name).pop();
 }

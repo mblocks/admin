@@ -6,6 +6,7 @@ export default defineConfig({
   },
   routes: [
     { path: '/', redirect: '/apps' },
+    { path: '/templates', component: '@/pages/templates' },
     {
       path: '/apps/:id/roles/:role_id',
       component: '@/layouts/app',

@@ -5,6 +5,11 @@ import { PageContainer } from '@ant-design/pro-layout';
 const tabList = {
   '/apps': { title: 'Apps', path: '/apps', breadcrumbName: 'Apps' },
   '/users': { title: 'Users', path: '/users', breadcrumbName: 'Users' },
+  '/templates': {
+    title: 'Templates',
+    path: '/templates',
+    breadcrumbName: 'Templates',
+  },
 };
 const itemRender = (route, _, routes) => {
   const last = routes.indexOf(route) === routes.length - 1;
