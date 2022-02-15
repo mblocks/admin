@@ -1,7 +1,11 @@
 import { Form, Input, Button, Card, Radio, Space, Tag, message } from 'antd';
 import { useModel, useParams, history } from 'umi';
 import { EditableProTable } from '@ant-design/pro-table';
-import { EditOutlined } from '@ant-design/icons';
+import {
+  EditOutlined,
+  SaveOutlined,
+  RollbackOutlined,
+} from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-table';
 import {
   queryAppRoles,
@@ -19,17 +23,6 @@ type AppItem = {
     id: number;
   }[];
 };
-
-const apps = [
-  { name: 'App 1', title: 'App1' },
-  { name: 'App 2', title: 'App2' },
-  { name: 'App 3', title: 'App3' },
-  { name: 'App 4', title: 'App4' },
-  { name: 'App 5', title: 'App5' },
-  { name: 'App 6', title: 'App6' },
-  { name: 'App 7', title: 'App7' },
-  { name: 'App 8', title: 'App8' },
-];
 
 const columns: ProColumns<AppItem>[] = [
   {
@@ -75,13 +68,15 @@ const columns: ProColumns<AppItem>[] = [
   },
   {
     title: 'Actions',
-    width: 110,
+    width: 180,
     valueType: 'option',
+    align: 'center',
     render: (text, record, _, action) => (
       <Space>
         <Button
           size="small"
           icon={<EditOutlined />}
+          type="link"
           onClick={() => {
             action?.startEditable?.(record.id);
           }}
@@ -197,6 +192,8 @@ const UserItem = () => {
               <Button
                 key="save"
                 size="small"
+                type="link"
+                icon={<SaveOutlined />}
                 onClick={() => {
                   const roles = form.getFieldValue([recordKey, 'roles']);
                   onSave(recordKey, {
@@ -212,6 +209,8 @@ const UserItem = () => {
               <Button
                 key="cancel"
                 size="small"
+                type="link"
+                icon={<RollbackOutlined />}
                 onClick={() => {
                   cancelEditable(recordKey);
                 }}
