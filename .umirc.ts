@@ -4,6 +4,10 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
+  locale: {
+    default: 'en-US',
+    antd: true,
+  },
   routes: [
     { path: '/', redirect: '/apps' },
     { path: '/templates', component: '@/pages/templates' },

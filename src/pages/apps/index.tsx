@@ -31,6 +31,11 @@ const columns: ProColumns<AppItem>[] = [
     ellipsis: true,
   },
   {
+    title: 'Visibility Level',
+    dataIndex: 'visibility_level',
+    ellipsis: true,
+  },
+  {
     title: 'Ingress',
     dataIndex: 'ingress',
     hideInSearch: true,
@@ -50,7 +55,7 @@ const columns: ProColumns<AppItem>[] = [
     },
   },
   {
-    title: '状态',
+    title: 'State',
     dataIndex: 'state',
     render: (_, record) => {
       return (
@@ -77,7 +82,7 @@ const columns: ProColumns<AppItem>[] = [
     hideInSearch: true,
   },
   {
-    title: '操作',
+    title: 'Option',
     valueType: 'option',
     dataIndex: 'id',
     width: 110,
@@ -109,7 +114,7 @@ const AppsIndex = () => {
           icon={<PlusOutlined />}
           type="primary"
         >
-          新建
+          Create
         </Button>,
       ]}
     />

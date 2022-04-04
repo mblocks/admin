@@ -71,7 +71,7 @@ const columns: ProColumns<UserItem>[] = [
     hideInSearch: true,
   },
   {
-    title: '操作',
+    title: 'Option',
     valueType: 'option',
     width: 110,
     render: (_, record) => (
@@ -97,7 +97,7 @@ const UsersIndex = () => {
           icon={<PlusOutlined />}
           type="primary"
         >
-          新建
+          Create
         </Button>,
       ]}
     />

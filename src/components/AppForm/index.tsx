@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Select, Tabs, Button, Space, message } from 'antd';
+import { Form, Tabs, Button, Space, message } from 'antd';
 import { ProFormField } from '@ant-design/pro-form';
 import KeyValueFormList from './KeyValueFormList';
 import { deployApp, deleteApp } from '@/services';
@@ -17,6 +17,14 @@ const AppForm = ({ fullName = [], name = [], ...props }) => {
       />
       <ProFormField hidden name={[...name, 'id']} />
       <ProFormField label="title" name={[...name, 'title']} />
+      {name.length == 0 && (
+        <ProFormField
+          label="Visibility Level"
+          valueType="radioButton"
+          fieldProps={{ options: ['private', 'internal'] }}
+          name={[...name, 'visibility_level']}
+        />
+      )}
       <ProFormField
         label="description"
         name={[...name, 'desc']}
@@ -32,17 +40,11 @@ const AppForm = ({ fullName = [], name = [], ...props }) => {
           },
         }}
       />
-      <Form.Item
+      <ProFormField
         name={[...name, 'image']}
         label="Image"
         rules={[{ required: true }]}
-      >
-        <Select placeholder="Select a docker image" allowClear>
-          <Select.Option value="nginx:alpine">nginx:alpine</Select.Option>
-          <Select.Option value="redis:alpine">redis:alpine</Select.Option>
-          <Select.Option value="traefik">traefik</Select.Option>
-        </Select>
-      </Form.Item>
+      />
       <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
         <Tabs defaultActiveKey="environment" tabPosition="top">
           <TabPane tab="Environment" key="environment">
